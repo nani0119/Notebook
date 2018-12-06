@@ -462,8 +462,8 @@ git stash --all  //更保险
 git grep str
 
 
-参数|含义|
----
+|参数|含义|
+|---|----|
 |-n|显示行号|
 |-count|显示简短统计信息|
 |-p|查看str属于的方法和函数|
@@ -488,7 +488,9 @@ git commit --amend
 git rebase -i HEAD~3
 
 pick f7f3f6d changed my name a bit                           ------> *edit* f7f3f6d changed my name a bit
+
 pick 310154e updated README formatting and added blame
+
 pick a5f4a0d added cat-file
 
 git commit --amend
@@ -500,7 +502,9 @@ git rebase --continue
 git rebase -i HEAD~3
 
 pick f7f3f6d changed my name a bit <-------------------------
+
 pick 310154e updated README formatting and added blame     |
+
 pick a5f4a0d added cat-file       <------------------------
 
 //压缩提交
@@ -508,7 +512,9 @@ pick a5f4a0d added cat-file       <------------------------
 git rebase -i HEAD~3
 
 pick f7f3f6d changed my name a bit
+
 *squash* 310154e updated README formatting and added blame
+
 *squash* a5f4a0d added cat-file
 
 //拆分提交
@@ -516,14 +522,21 @@ pick f7f3f6d changed my name a bit
 git rebase -i HEAD~3
 
 pick f7f3f6d changed my name a bit
+
 *edit* 310154e updated README formatting and added blame
+
 pick a5f4a0d added cat-file
 
 git reset HEAD^
+
 git add README
+
 git commit -m 'updated README formatting'
+
 git add lib/simplegit.rb
+
 git commit -m 'added blame'
+
 git rebase --continue
 
 #### filter-branch
@@ -533,13 +546,21 @@ git filter-branch --tree-filter  'rm -f password.txt'  HEAD  //从每次提交�
 git filter-branch  --subdirectory-filter trunk HEAD  //让 trunk 子目录作为每一个提交的新的项目根目录
 
 git filter-branch --commit-filter '
+
 	if [ "$GIT_AUTHOR_EMAIL" = "schacon@localhost" ];
+
 	then
 		GIT_AUTHOR_NAME="Scott Chacon";
+
 		GIT_AUTHOR_EMAIL="schacon@example.com";
+
 		git commit-tree "$@";
+
 	else
+
 		git commit-tree "$@";
+
 	fi' HEAD                                          //全局修改邮箱地址
+
 
 
