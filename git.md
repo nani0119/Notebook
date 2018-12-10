@@ -563,4 +563,206 @@ git filter-branch --commit-filter '
 	fi' HEAD                                          //全局修改邮箱地址
 
 
+### reset
+
+//移动HEAD的指向
+
+git reset --soft  HEAD~   //回退commit的提交，index和工作目录区不变
+
+git reset [--mixed] HEAD~  //回退add的修改，工作目录区不变
+
+git reset --hard HEAD~    //回退仓库、index区、工作目录修改
+
+git reset sha-1 -- file.txt  //直接修改index区
+
+### check out
+
+//移动HEAD自身
+
+//================
+
+git checkout develop  //HEAD指向了develop，develop和master本身没有变动
+
+git reset master  //develop和master指向同一个提交
+
+//================
+
+### 高级merge
+
+#### 自动merge
+
+git merge -Xours mundo  //-Xours 冲突时直接使用我们这边的修改  -Xtheirs 冲突时直接使用他们那边的修改
+
+#### 子树合并
+
+//子树合并的思想是你有两个项目，并且其中一个映射到另一个项目的一个子目录
+
+$ git remote add rack_remote https://github.com/rack/rack
+
+$ git fetch rack_remote
+
+$ git checkout -b rack_branch rack_remote/master
+
+$ git checkout master
+
+$ git read-tree --prefix=rack/ -u rack_branch //读取一个分支的根目录树到当前的暂存区和工作目录里
+
+//=====子树修改
+
+$ git checkout rack_branch
+
+$ git pull
+
+$ git checkout master
+
+//=====
+
+$ git merge --squash -s recursive -Xsubtree=rack rack_branch
+
+//============
+
+$ git diff-tree -p rack_branch  //查看差异
+
+
+#### 手动merge
+
+//=========
+//获取冲突文件的三方拷贝
+
+git show :1:hello.rb > hello.common.rb
+
+git show :2:hello.rb > hello.ours.rb
+
+git show :3:hello.rb > hello.theirs.rb
+
+//手动merge
+
+git merge-file -p hello.common.rb hello.ours.rb hello.theirs.rb 
+
+//提交前查看差异
+
+git diff --ours  //提交结果与我们修改的差异
+
+git diff --theirs -b  //提交结果与他们那边的差异
+
+git diff --base -b    //提交结果在两边的差异 
+
+//清除
+
+git clean -f
+
+//============
+
+git checkout --conflict=diff3 hello.rb  //在冲突文件中显示三方修改
+
+git checkout --ours                    //冲突文件替换为我方的
+
+git checkout --theirs                  //冲突文件替换为他方的
+
+#### 查看合并日志
+
+git log --oneline --left-right --merge HEAD...MERGE_HEAD  //查看两个分支中产生冲突的提交
+
+#### 回退合并
+
+git revert -m 1 HEAD  //-m  1 需要被保留下来的父节点
+
+
+## 使用Git调试
+
+### 文件标注
+
+git blame -L 12,22 Simplegit.rb   //显示文件每行的最近修改提交  -L 指定行号范围
+
+git blame -C GITPackUpload.m   // -C 分析代码的原始出处
+
+### 二分查找
+
+//手动
+//=================
+git bisect start  
+
+git bisect bad    //当前提交存在文件
+
+git bisect good V1.0  //正常状态的开始处
+
+//test, 设置bad或者good
+
+git bisect reset  //检测后重置
+
+//=======
+
+//脚本方式
+
+git bisect start HEAD V1.0    //有问题区间
+
+git bisect run test-error.sh  //每次检出都会自动执行脚本，在正常的情况下返回 0，在不正常的情况下返回非 0.脚本内可以执行make等测试
+
+
+### 子模块
+
+//添加
+
+git submodule add  https://github.com/chaconinc/DbConnector  //添加字模块
+
+git diff --cached --submodule  DbConnector //查看差异
+
+git commit 
+
+//检出
+
+//=======================
+
+git clone https://github.com/chaconinc/MainProject
+
+git submodule init
+
+git submodule update  
+
+//=======================
+
+git clone --recursive https://github.com/chaconinc/MainProject
+
+//=====================
+
+//拉取子模块上游修改
+
+git submodule update --remote DbConnector
+
+//在子模块工作
+
+//==========================
+
+//进入子模块
+
+git checkout stable  //检出分支
+
+git submodule update --remote --merge
+
+//修改
+
+git commit
+
+//在我们改动后上游有个修改通过rebase合入
+
+git submodule update --remote --rebase
+
+//==========================
+
+//在主项目发布子模块改动
+
+//===========================
+
+//进入主目录
+
+git push --recurse-submodules=check
+
+git push --recurse-submodules=on-demand //尝试提交子模块
+
+//===========================
+
+//子模块技巧
+
+git submodule foreach 'git stash'  //遍历子模块
+
 
