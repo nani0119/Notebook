@@ -765,4 +765,48 @@ git push --recurse-submodules=on-demand //尝试提交子模块
 
 git submodule foreach 'git stash'  //遍历子模块
 
+### 打包
 
+//打包整个仓库
+
+git bundle creat repo.bundle HEAD master
+
+git clone repo.bundle repo
+
+//git clone repo.bundle -b master repo  //创建bundle时未指明HEAD时需要加 -b master支持从哪里检出
+
+//打包提交
+
+git bundle creat commit.bundle master ^ead459
+
+git bundle  list-head  commit.bundle
+
+git bundle verify  commit.bundle
+
+git fetch  commit.bundle  master:other-master  //合入到other-master
+
+### 拆分仓库
+
+git branch history sha-1
+
+git remote add project-his ssh://192.168.31.6:/opt/git/project-his.git  //创建旧版本库
+
+git push project-his  history:master    //推送旧版本库
+
+echo "get history form ssh://192.168.31.6:/opt/git/project-his.git" | git commit-tree history^{tree}  //创建新库的初始提交
+
+622e88e9cbfbacfb75b5279245b9fb38dfea10cf
+
+git rebase --onto 622e88e9cbf history^   //将新库变基到新的初始提交上
+
+git remote add project-new ssh://192.168.31.6:/opt/git/project-new.git  //推送到新仓库
+
+//合并新旧仓库
+
+git clone ssh://192.168.31.6:/opt/git/project-new.git
+
+git remote add project-his  ssh://192.168.31.6:/opt/git/project-his.git
+
+git fetch project-his
+
+git replace project-new第一笔提交sha-1   project-old最后一笔提交sha-1
