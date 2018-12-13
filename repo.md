@@ -8,19 +8,19 @@
 
 # manifest文件
 
-> <?xml version="1.0" encoding="UTF-8"?>
-> <manifest>
->    <remote  name="aosp"
+> &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+> &lt;manifest&gt;
+>    &lt;remote  name="aosp"
 >             fetch=".."
->             review="https://android-review.googlesource.com/" />
->    <default revision="master"
+>             review="https://android-review.googlesource.com/" /&gt;
+>    &lt;default revision="master"
 >             remote="aosp"
->             sync-j="4" />
->    <project path="build" name="platform/build" groups="pdk,tradefed" >
->	        <copyfile src="core/root.mk" dest="Makefile" />
->    </project>
->    <project path="abi/cpp" name="platform/abi/cpp" groups="pdk" />
-> </manifest>
+>             sync-j="4" /&gt;
+>    &lt;project path="build" name="platform/build" groups="pdk,tradefed" &gt;
+>	        &lt;copyfile src="core/root.mk" dest="Makefile" /&gt;
+>    &lt;/project>
+>    &lt;project path="abi/cpp" name="platform/abi/cpp" groups="pdk" /&gt;
+> &lt;/manifest&gt;
 
 *<remote>* : 描述了远程仓库的基本信息。
 
