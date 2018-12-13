@@ -810,3 +810,151 @@ git remote add project-his  ssh://192.168.31.6:/opt/git/project-his.git
 git fetch project-his
 
 git replace project-new第一笔提交sha-1   project-old最后一笔提交sha-1
+
+## git内部工作原理
+
+### git对象
+
+git hash-object -w  test.txt   //存储数据对象,返回hash值
+
+83baae61804e65cc73a7201a7252750c76066a30
+
+//=======
+echo 'version 1 ' | git hash-object -w --stdin  // 从stdin读取数据
+
+//======
+
+git cat-file -p  83baae61804e65cc73a7201a7252750c76066a30   //查看数据对象内容
+
+git update-index --add --cacheinfo 100644  83baae61804e65cc73a7201a7252750c76066a30 test.txt  //新增文件增加到index区
+
+//=====
+
+git update-index test.txt
+
+git update-index --add new.txt
+
+//=====
+
+git write-tree     //写入树对象,返回hash值
+
+d8329fc1cc938780ffdd9f94e0d364e0ea74f579
+
+echo 'first commit' | git commit-tree d8329fc1cc938780  //生成提交,返回提交hash值
+
+fdf4fc3344e67ab068f8368
+
+//======
+
+git write-tree
+
+dffdefdfdf
+
+echo 'second commit ' | git commit-tree dffdefdfdf -p fdf4fc334   //-p 指明父提交
+
+//=====
+
+git cat-file -p master^{tree}  //查看最近一次master分支提交的树对象
+
+//======
+
+git read-tree  --prefix=bak d8329fc1cc938780ffdd9f94e0   //基于树对象创建新目录,放到bak目录下
+
+git write-tree
+
+//=====
+
+git log --state fdf4fc3  //查看提交
+
+### git引用
+
+//.git/refs/heads目录保存每个分支的最新hash值
+
+git update-ref refs/heads/test   sha-1  //更新或增加test分支引用
+
+//HEAD保存当前使用的是哪一个分支
+
+$ cat .git/HEAD
+
+ref: refs/heads/test
+
+git symbolic-ref  HEAD //查看HEAD值
+
+git symblioc-ref HEAD refs/heads/master  //更新分支指向
+
+//标签
+
+git update-ref refs/tag/v1.0 cac0cab538b970a37ea1e769cbbde60  //生成轻量级标签
+
+//附注标签
+
+git tag -a v1.1 1a410efbd13591db07496601eb -m "test tag"
+
+//======
+
+$ cat .git/refs/tags/v1.1
+
+*9585191f37f7b0fb9444f35a9bf50de191beadc2*
+
+$ git cat-file -p *9585191f37f7b0fb9444f35a9bf50de191beadc2*
+
+*object 1a410efbd13591db07496601ebc7a059dd55cfe9*
+
+type commit
+
+tag v1.1
+
+tagger Scott Chacon <schacon@gmail.com> Sat May 23 16:48:58 2009 -0700
+
+test tag
+
+//=====
+
+cat .git/refs/remotes/origin/master   //远程引用
+
+### 引用规格
+
+cat .git/config
+
+[remote "origin"]
+
+url = https://github.com/schacon/simplegit-progit   //远程地址
+
+fetch = +refs/heads/*:refs/remotes/origin/*        //将远程的引用更新到本地， +标识不能快进的情况下也更新引用
+
+//==========================
+
+fetch = +refs/heads/master:refs/remotes/origin/master  //只拉取master分支
+
+fetch = +refs/heads/experiment:refs/remotes/origin/experiment  //也可同时指定多个分支
+
+//=========================
+
+git fetch origin master:refs/remotes/origin/mymaster   //将远程分支拉取到本地的origin/mymaster分支
+
+//========================
+
+git push master:refs/head/qa/master  //将本地master分支推送到远程的qa/master上
+
+//==========================
+
+[remote "origin"]
+
+url = https://github.com/schacon/simplegit-progit
+
+fetch = +refs/heads/*:refs/remotes/origin/*
+
+push = refs/heads/master:refs/heads/qa/master    //默认推送
+
+//========================
+
+
+git push  :test  //删除远程分支test
+
+### 数据恢复
+
+git reflog   //查询丢失的提交
+
+git fsck --full  //丢失的提交
+
+git rev-list --objects --all | grep 82c99a3   //82c99a3提交的文件
