@@ -10,31 +10,31 @@
 
 > &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 
-> &lt;manifest&gt;
+ &lt;manifest&gt;
 
->    &lt;remote  name="aosp"
+    &lt;remote  name="aosp"
 
->             fetch=".."
+             fetch=".."
 
->             review="https://android-review.googlesource.com/" /&gt;
+             review="https://android-review.googlesource.com/" /&gt;
 
->    &lt;default revision="master"
+    &lt;default revision="master"
 
->             remote="aosp"
+             remote="aosp"
 
->             sync-j="4" /&gt;
+             sync-j="4" /&gt;
 
->    &lt;project path="build" name="platform/build" groups="pdk,tradefed" &gt;
+    &lt;project path="build" name="platform/build" groups="pdk,tradefed" &gt;
 
->	        &lt;copyfile src="core/root.mk" dest="Makefile" /&gt;
+	        &lt;copyfile src="core/root.mk" dest="Makefile" /&gt;
 
->    &lt;/project>
+    &lt;/project>
 
->    &lt;project path="abi/cpp" name="platform/abi/cpp" groups="pdk" /&gt;
+    &lt;project path="abi/cpp" name="platform/abi/cpp" groups="pdk" /&gt;
 
-> &lt;/manifest&gt;
+ &lt;/manifest&gt;
 
-*<remote>* : 描述了远程仓库的基本信息。
+*remote* : 描述了远程仓库的基本信息。
 
 name描述的是一个远程仓库的名称;
 
@@ -42,13 +42,13 @@ fetch用作项目名称的前缘;
 
 review描述的是用作code review的server地址
 
-*<default>* : default标签的定义的属性，将作为<project>标签的默认属性，在<project>标签中，也可以重写这些属性
+*default* : default标签的定义的属性，将作为<project>标签的默认属性，在<project>标签中，也可以重写这些属性
 
 revision表示当前的版本，也就是我们俗称的分支;
 
 remote描述的是默认使用的远程仓库名称，即<remote>标签中name的属性值
 
-*<project>* : 每一个repo管理的git库
+*project* : 每一个repo管理的git库
 
 path描述的是项目相对于远程仓库URL的路径，同时将作为对应的git库在本地代码的路径;
 
