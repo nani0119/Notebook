@@ -42,13 +42,13 @@ fetch用作项目名称的前缘;
 
 review描述的是用作code review的server地址
 
-*default* : default标签的定义的属性，将作为<project>标签的默认属性，在<project>标签中，也可以重写这些属性
+**default** : default标签的定义的属性，将作为<project>标签的默认属性，在<project>标签中，也可以重写这些属性
 
 revision表示当前的版本，也就是我们俗称的分支;
 
 remote描述的是默认使用的远程仓库名称，即<remote>标签中name的属性值
 
-*project* : 每一个repo管理的git库
+**project** : 每一个repo管理的git库
 
 path描述的是项目相对于远程仓库URL的路径，同时将作为对应的git库在本地代码的路径;
 
