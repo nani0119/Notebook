@@ -8,32 +8,32 @@
 
 # manifest文件
 
-''' xml
-> <xml version="1.0" encoding="UTF-8"\>
+'''
+ <xml version="1.0" encoding="UTF-8"\>
 
-> &lt;manifest&gt;
+ <manifest>;
 
->    &lt;remote  name="aosp"
+    <remote name="aosp"
 
->             fetch=".."
+               fetch=".."
 
->             review="https://android-review.googlesource.com/" /&gt;
+               review="https://android-review.googlesource.com/" />
 
->    &lt;default revision="master"
+    <default revision="master"
 
->             remote="aosp"
+             remote="aosp"
 
->             sync-j="4" /&gt;
+             sync-j="4" />
 
->    &lt;project path="build" name="platform/build" groups="pdk,tradefed" &gt;
+    <project path="build" name="platform/build" groups="pdk,tradefed" >
 
->	        &lt;copyfile src="core/root.mk" dest="Makefile" /&gt;
+	        &lt;copyfile src="core/root.mk" dest="Makefile" />
 
->    &lt;/project>
+    </project>
 
->    &lt;project path="abi/cpp" name="platform/abi/cpp" groups="pdk" /&gt;
+    <project path="abi/cpp" name="platform/abi/cpp" groups="pdk" />
 
-> &lt;/manifest&gt;
+ </manifest>
 
 '''
 
