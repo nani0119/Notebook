@@ -55,7 +55,7 @@ int main()
 使用\[\]创建链接文本，\(\)包含链接地址
 
 ``` 
-点击[这里](www.github.com)跳转到github 
+点击[这里](https://github.com)跳转到github 
 ```
 点击[这里](www.github.com)跳转到github
 
