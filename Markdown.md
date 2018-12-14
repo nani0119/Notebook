@@ -1,12 +1,15 @@
-```seq
-Alice->Bob: Hello Bob, how are you?
-Note right of Bob: Bob thinks
-Bob->Alice:I am good thanks!
+# headings
+使用1至6个#标识标题，标题与#号间留一个空格
 ```
-```mermaid
-graph TD;
-A-->B;
-A-->C; 
-B-->D;
-C-->D;
+=======
+# 一级标题
+## 二级标题
+### 三级标题
+
 ```
+
+# 一级标题
+## 二级标题
+### 三级标题
+
+>>>>>>> Stashed changes
