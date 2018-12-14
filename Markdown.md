@@ -42,20 +42,12 @@
 # 4 应用代码
 \`\`\` 符号可以引用改代码
 
+Hello World:
 ```
-```
-git基本命令:
-
-git status
-git add 
-git commit
-```
-```
-git基本命令:
-```
-git status
-git add 
-git commit
+int main()
+{
+	printf("hello world\n");
+}
 ```
 ----------
 # 5 链接
