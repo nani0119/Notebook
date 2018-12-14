@@ -3,8 +3,9 @@
 ## 初始化仓库
 
 初始化git仓
-`git init`
-
+```
+git init
+```
 
 git init --bare --shared 
 
