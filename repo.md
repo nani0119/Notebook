@@ -8,7 +8,8 @@
 
 # manifest文件
 
-> &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+''' xml
+> <xml version="1.0" encoding="UTF-8"\>
 
 > &lt;manifest&gt;
 
@@ -33,6 +34,8 @@
 >    &lt;project path="abi/cpp" name="platform/abi/cpp" groups="pdk" /&gt;
 
 > &lt;/manifest&gt;
+
+'''
 
 **remote** : 描述了远程仓库的基本信息。
 
