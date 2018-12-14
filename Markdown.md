@@ -21,8 +21,8 @@
 |style|syntax|example|output|
 |-----|------|-------|------|
 |粗体| \*\*text\*\*|`** This is bold text**`|**This is bold text**|
-|倾斜|\_text\_|`_ This is italic text _`|_This is italic text_|
-|粗体加倾斜|\*\*\_ text \_\*\*|` **_ This is bold and italic text _** `|**_This is bold and italic text_**|
+|倾斜|\_text\_|`_This is italic text_`|_This is italic text_|
+|粗体加倾斜|\*\*\_ text \_\*\*|` **_This is bold and italic text_** `|**_This is bold and italic text_**|
 |删除线|\~\~text\~\~|`~~This was mistaken text~~`|~~This was mistaken text~~|
 
 ----------
