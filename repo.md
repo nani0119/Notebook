@@ -10,31 +10,19 @@
 
 ```
  <xml version="1.0" encoding="UTF-8"/>
-
  <manifest>;
-
     <remote name="aosp"
-
                fetch=".."
-
                review="https://android-review.googlesource.com/" />
-
     <default revision="master"
-
              remote="aosp"
-
              sync-j="4" />
-
     <project path="build" name="platform/build" groups="pdk,tradefed" >
-
 	        &lt;copyfile src="core/root.mk" dest="Makefile" />
-
     </project>
-
     <project path="abi/cpp" name="platform/abi/cpp" groups="pdk" />
-
  </manifest>
-
+ 
 ```
 
 **remote** : 描述了远程仓库的基本信息。
