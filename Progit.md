@@ -1,58 +1,147 @@
-# git 基本知识
+# git 基本操作
 
 ## 初始化仓库
 
-初始化git仓
+1.  初始化git仓
+
 ```
 git init
 ```
+2.   创建裸仓库，--shared选项向仓库的组用户增加可写权限
 
+```
 git init --bare --shared 
-
-git clone [url]
-
-## 向下一笔提交中添加内容
-
-git add 
-
+```
+3. 克隆一个仓库， --recursive选项可以使submodule模块添加自动被克隆
+```
+git clone --recursive [url]
+```
+## 向提交中添加内容
+1. add 操作可以向下一笔提交中添加内容，-p或--patch添加文件部分内容
+```
+git add   [file-list]
+git add -p  [file-list]
+```
 ## 查看git库状态
-
+1. 查看库状态，-s或--short输出简短格式
+```
 git status
 
 git status -s 
-
+```
 ## 比较差异
+1. 工作目录与快照之间的差别
+```
+git diff     
+```
+2. 暂存区与快照之间的差别
+```
+git diff --staged
+git diff --cached 
+```
+3. 检测空白错误
+```
+git diff --check  
+```
+4. 分支间差异
 
-git diff       //工作目录与快照之间的差别
+```                 
+       A---B---C topic
+     /
+ D---E---F---G master
 
-git diff --staged   //暂存区与快照之间的差别
-
-git diff --check   //检测空白错误
-
+```
+```
+git diff maste    //显示C与G之间的差别
+```
+```
+git diff master...topic   //显示E与C之间的差异
+```
 ## 删除文件
+1. 删除工作目录中文件
+```
+git rm [file-list]
+```
+2. 删除暂存区中文件
+```
+git rm -f [file-list]  // 已经放到暂存区并且此时在工作目录中也有修改
 
-git rm
-
-git rm -f  // 修改过并且已经放到暂存区
-
-git rm --cached  //删除暂存区但保留工作目录中文件
-
+git rm --cached [file-list] //删除暂存区但保留工作目录中文件
+```
 ## 重命名
-
-git mv
-
+```
+git mv file_from file_to
+```
 ## 查看提交历史
-
+1. 按提交时间显示所有更新
+```
 git log
+```
+git log常用选项
+|选项|说明                                                               |
+|--------------|---------------------------------------------------|
+|-p             |按照补丁格式显示每个更新之间的差异|
+|-<n>         |显示最近的n笔提交                              |
+|--stat        |显示文件修改统计信息                         |
+|--shortstat|只显示 --stat 中最后的行数修改添加移除统计|
+|--graph     |使用 ASCII 图形显示分支合并历史|
+| --oneline  |每个提交信息显示在单独的一行内|
+|--all           |显示所有的分支信息|
+| --decorate|查看各个分支当前所指的对象|
+|--name-only|仅在提交信息后显示已修改的文件清单|
+|--name-status|显示新增、修改、删除的文件清单|
+|--relative-date|使用较短的相对时间显示（比如，“2 weeks ago”）|
+|--since , --after|仅显示指定时间之后的提交|
+|--until , --before|仅显示指定时间之前的提交|
+|--author|仅显示指定作者相关的提交|
+|--committer|仅显示指定提交者相关的提交|
+|--grep|仅显示含指定关键字的提交|
+|-S<keyword>|仅显示添加或移除了某个关键字的提交|
+|--pretty|使用其他格式显示历史提交信息,可用的选项包括 oneline，short,full，fuller 和 format（后跟指定格式）。|
 
+```
+git log --pretty=format:"format string"
+```
+**格式化字符串选项**
+| 选项     | 说明              |
+|-----------|------------------|
+|%H       |commit对象的完整哈希值|
+|%h       |commit对象的简短哈希值|
+|%T       |tree对象的完整哈希值|
+|%t        |tree对象的简短哈希值| 
+|%P      |parent对象的完整哈希值|
+|%p      |parent对象的简短哈希值|
+|%an    |作者名字|
+|%ae    |作者email|
+|%ad    |作者修改时间|
+|%ar    | 作者修改日期，按多久以前的方式显示|
+|%cn    |作者名字|
+|%ce    |作者email|
+|%cd    |作者修改时间|
+|%cr    | 作者修改日期，按多久以前的方式显示|
+|%s     |注释|
+2. 显示每次提交的差异
+```
 git log -p   //显示修改
 
 git log -p -2  //最近两笔提交
-
+```
+3. 显示统计信息
+```
 git log --stat  //增加统计信息
 
-git log --pretty=  [short|full|fuller]  //显示效果
+commit ca82a6dff817ec66f44342007202690a93763949
+Author: Scott Chacon <schacon@gee-mail.com>
+Date: Mon Mar 17 21:52:11 2008 -0700
+changed the version number
+Rakefile | 2 +-
+1 file changed, 1 insertion(+), 1 deletion(-)
+```
 
+4. 不同于默认格式的方式展示提交
+```
+git log --pretty=  [short|full|fuller]  //显示效果
+```
 git log --pretty=format:"%h %an %ad %s"  //显示格式
 
 | 参数| 含义 |
