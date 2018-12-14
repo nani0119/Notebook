@@ -2,7 +2,11 @@
 
 ## 初始化仓库
 
-git init
+初始化git仓
+`git init`
+
+
+git init --bare --shared 
 
 git clone [url]
 
