@@ -8,7 +8,7 @@
 
 # manifest文件
 
-'''
+```
  <xml version="1.0" encoding="UTF-8"/>
 
  <manifest>;
@@ -35,7 +35,7 @@
 
  </manifest>
 
-'''
+```
 
 **remote** : 描述了远程仓库的基本信息。
 
