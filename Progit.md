@@ -24,22 +24,25 @@ git add -p  [file-list]
 ```
 ## 查看git库状态
 1. 查看库状态，-s或--short输出简短格式
+
 ```
 git status
-
 git status -s 
 ```
 ## 比较差异
 1. 工作目录与快照之间的差别
+
 ```
 git diff     
 ```
 2. 暂存区与快照之间的差别
+
 ```
 git diff --staged
 git diff --cached 
 ```
 3. 检测空白错误
+
 ```
 git diff --check  
 ```
@@ -59,21 +62,25 @@ git diff master...topic   //显示E与C之间的差异
 ```
 ## 删除文件
 1. 删除工作目录中文件
+
 ```
 git rm [file-list]
 ```
 2. 删除暂存区中文件
+
 ```
 git rm -f [file-list]  // 已经放到暂存区并且此时在工作目录中也有修改
 
 git rm --cached [file-list] //删除暂存区但保留工作目录中文件
 ```
 ## 重命名
+
 ```
 git mv file_from file_to
 ```
 ## 查看提交历史
 1. 按提交时间显示所有更新
+
 ```
 git log
 ```
@@ -124,6 +131,7 @@ git log --pretty=format:"format string"
 |%s     |注释|
 
 3. 例子
+
 ```
 $ git log --stat
 
@@ -151,6 +159,7 @@ ca82a6d - Scott Chacon, 6 years ago : changed the version number
 085bb3b - Scott Chacon, 6 years ago : removed unnecessary test
 a11bef0 - Scott Chacon, 6 years ago : first commit
 ```
+
 ```
 $ git log --pretty=format:"%h %s" --graph
 
@@ -180,9 +189,11 @@ b0ad11e - pull: allow "git pull origin $something:$current_branch" into an unbor
 ch
 ```
 ## 提交修改
+
 ```
 git commit -m "log message"
 ```
+
 ```
 git commit --amend
 ```
@@ -199,6 +210,7 @@ git checkout -- <file>
 ```
 ## 查看远程仓库
 1. 指定选项 -v ，会显示需要读写远程仓库使用的 Git 保存的简写与其对应的 URL
+
 ```
 $ git remote -v
 
@@ -323,6 +335,7 @@ git checkout -b branchname tagname
 ## 分支
 
 1. 创建分支
+
 ```
 
 git branch <branch-name>     //创建分支
@@ -330,6 +343,7 @@ git branch <branch-name>     //创建分支
 git branch <branch-name> master //基于master创建分支
 ```
 2. 切换分支
+
 ```
 git checkout branch-name   //切换分支
 
@@ -338,6 +352,7 @@ git checkout -b branch-name  //创建并切换分支
 git checkout -b branch-name master //基于master创建及切换分支
 ```
 3. 查看分支
+
 ```
 git branch  //查看分支
 
@@ -349,6 +364,7 @@ git branch --merged/--no-merged   //查看已经合并/没有合并的分支
 
 ```
 4. 删除分支
+
 ```
 git branch -d branch-name  //删除分支
 
@@ -356,6 +372,7 @@ git branch -D branch-name  //强制删除分支
 
 ```
 ## 合并
+
 ```
 git checkout master     //切换到master分支
 
@@ -371,15 +388,17 @@ git merge hotfix        //将hotfix修改合并到master分支
 
 
 ```
+
 ```
 git merge origin/serverfix  //将远程分支合并到当前分支
 ```
+
 ```
 git merge --no-commit --squash featureB  //--squash 所有提交压缩成一个变更集，--no-commit 延迟生成合并提交
 ```
-//=====
 
 ## 分支跟踪
+
 ```
 git checkout --track origin/serverfix        //跟踪分支的简写创建方法
 
@@ -393,8 +412,11 @@ git brach -vv    //查看设置的所有跟踪分支
 ```
 
 ## 变基
+
 在分支上重演变基分支的提交
-1. 
+
+ 
+
 ```
 git checkout experiment   //切换到experiment分支
 
@@ -415,7 +437,9 @@ git merge experiment     //执行快速合并，maser和experiment指向同一�
  D---E---F---G---A'---B'---C'   experiment/master
 
 ```
-2. 
+
+ 
+
 ```
 git rebase --onto maser server client //取出client分支，但是不在server分支的修改，然后把他们在maser分支上重演
 
@@ -423,7 +447,8 @@ git checkout maser
 
 git merge client
 ```
-3. 
+ 
+
 ```
 git rebase master server
 
@@ -467,6 +492,7 @@ git cherry-pick e43a6fd3e94888d76779ad79fb568ed180e5fcdf  //拣选,形成新的�
 
 ### 签名标签与验证
 1. 本地配置
+
 ```
 //export GPG_TTY=$(tty)
 
@@ -477,12 +503,14 @@ git cherry-pick e43a6fd3e94888d76779ad79fb568ed180e5fcdf  //拣选,形成新的�
 git config --global user.signingkey pub-key
 ```
 2. 生成公钥的blob对象
+
 ```
 git -a -export pub-key | git hash-object -w --stdin   //向git中写入公钥blob对象
 
 //659ef797d181633c87ec71ac3f9ba29fe5775b92
 ```
 3. 创建指向公钥的标签
+
 ```
 git tag -a gpg-pub-key 659ef797d181633c87ec71ac3f9ba29fe5775b92  //创建指向公钥blob
 ```
@@ -492,18 +520,22 @@ git tag -a gpg-pub-key 659ef797d181633c87ec71ac3f9ba29fe5775b92  //创建指向�
 git tag -s v1.1 -m "v1.1 tag"  //创建签名的标签
 ```
 5. 推送标签
+
 ```
 git push --tags 
 ```
 6. 其他人导入公钥签名
+
 ```
 git show gpg-pub-key | gpg --import  //其他人导入key
 ```
 6. 验证标签签名
+
 ```
 git tag -v v1.1
 ```
 ### 签名commit
+
 ```
 git commit -S -m "signed commit"  //签名提交
 
@@ -511,6 +543,7 @@ git log --show-signature         //显示签名
 ```
 ### 发布
 1. 生成一个构建号
+
 ```
 git description master //最近的标签名、自该标签之后的提交数目和你所描述的提交的部分 SHA-1值
 
@@ -518,6 +551,7 @@ v1.6.2-rc1-20-g8c5b85c
 ```
 
 2. 快照归档
+
 ```
 git archive master --prefix='project/' | gzip > xxxxx.tar.gz  //快照归档
 
@@ -526,6 +560,7 @@ git archive master --prefix='project/' --format=zip  > xxxx.zip
 3. 制作简报
 比如，你的上一次发布名称是 v1.0.1，那么下面的命
 令可以给出上次发布以来所有提交的总结：
+
 ```
 $ git shortlog --no-merges master --not v1.0.1
 
@@ -558,6 +593,7 @@ git clone file:///opt/git/prohect.git
 ```
 ### 智能HTTP协议
 1. 服务器端操作
+
 ```
 $ cd /var/www/htdocs/
 
@@ -570,11 +606,13 @@ $ mv hooks/post-update.sample hooks/post-update
 $ chmod a+x hooks/post-update
 ```
 2. 客户端操作
+
 ```
 $ git clone https://example.com/gitproject.git
 ```
 ### SSH协议
 1. 服务器端操作
+
 ```
 $ cd /opt/git
 
@@ -585,11 +623,13 @@ $ cd project.git
 $ git init --bare --shared
 ```
 2. 客户端操作
+
 ```
 $ git clone ssh://user@server/project.git
 ```
 ### git协议
 1. 服务器端操作
+
 ```
 git daemon --reuseaddr --base-path=/opt/git/ /opt/git/  //监听9418端口
 
@@ -604,6 +644,7 @@ git init --bare --shared
 touch git-daemon-export-ok
 ```
 2. 客户端操作
+
 ```
 git clone  git://server/project.git
 ```
@@ -611,14 +652,17 @@ git clone  git://server/project.git
 通过web页面查看代码
 
 1. 进入代码仓库
+
 ```
 cd /opt/git/project.git
 ```
 2. 启动web浏览服务
+
 ```
 git instaweb    //打开web浏览
 ```
 3. 关闭web浏览服务
+
 ```
 git instaweb --stop //关闭web浏览
 ```
@@ -631,8 +675,10 @@ git rev-parse topic1   //topic1 对应的hash值
 ```
 
 ### reflog
+
 ```
 git reflog            //记录HEAD和分支引用的变更
+
 ```
 ### ^与~
 ~/^回溯的合并分支路径不同
@@ -691,6 +737,7 @@ git stash save -p
 #### 储藏(stash)
 
 1. 储藏
+
 ```
 git stash 
 
@@ -701,20 +748,24 @@ git stash --include-untracked  //储藏包括未跟踪的文件
 git stash --patch     //挑选储藏
 ```
 2. 列出储藏栈
+
 ```
 git stash list   //列出储藏栈
 ```
 3. 应用储藏
+
 ```
 git stash apply --index  //应用储藏，不清栈,--index 还原到暂存区
 
 git stash pop  //应用并清栈
 ```
 4. 放弃应用
+
 ```
 git stash drop  //放弃应用
 ```
 5. 基于储藏新建一个分支
+
 ```
 git stash branch <branch-name>  //基于储藏新建一个分支
 ```
@@ -762,6 +813,7 @@ git commit --amend
 #### 修改多次提交历史
 
 1. 修改提交
+
 ```
 git rebase -i HEAD~3
 
@@ -796,6 +848,7 @@ pick a5f4a0d added cat-file    pick-->squash
 ```
 
 4. 拆分提交
+
 ```
 git rebase -i HEAD~3
 
@@ -844,18 +897,22 @@ git filter-branch --commit-filter '
 ### reset
 
 1. index和工作目录区不变
+
 ```
 git reset --soft  HEAD~   //回退commit的提交，index和工作目录区不变
 ```
 2. 工作目录区不变
+
 ```
 git reset [--mixed] HEAD~  //回退add的修改，工作目录区不变
 ```
 3. 全部回退
+
 ```
 git reset --hard HEAD~    //回退仓库、index区、工作目录修改
 ```
 4. 只修改暂存区
+
 ```
 git reset sha-1 -- file.txt  //直接修改index区   //修改暂存区为sha-1 指定的对象
 ```
@@ -875,6 +932,7 @@ git reset master  //develop和master指向同一个提交
 ### 高级merge
 
 #### 自动merge
+
 ```
 git merge -Xours mundo  //-Xours 冲突时直接使用我们这边的修改  -Xtheirs 冲突时直接使用他们那边的修改
 ```
@@ -885,6 +943,7 @@ git merge -Xours mundo  //-Xours 冲突时直接使用我们这边的修改  -Xt
 1. 项目映射
 
 我们将 Rack 应用添加到你的项目，将rack项目映射为master的一个子目录
+
 ```
 git remote add rack_remote https://github.com/rack/rack
 
@@ -907,12 +966,14 @@ git pull
 git checkout master
 ```
 3. 查看这些差异
+
 ```
 git diff-tree -p rack_branch //查看 rack 子目录和 rack_branch 分支的差异
 
 git diff-tree -p rack_remote/master  //rack 子目和最近一次从服务器上抓取的 master 分支进行比较
 ```
 4. 合并修改
+
 ```
 git merge --squash -s recursive -Xsubtree=rack rack_branch
 
@@ -925,6 +986,7 @@ git merge --squash -s recursive -Xsubtree=rack rack_branch
 #### 手动merge
 
 1. 获取冲突文件的三方拷贝
+
 ```
 git show :1:hello.rb > hello.common.rb
 
@@ -940,6 +1002,7 @@ git show :3:hello.rb > hello.theirs.rb
 git merge-file -p hello.common.rb hello.ours.rb hello.theirs.rb  > hello.rb
 ```
 4. 提交前查看差异
+
 ```
 git diff --ours  //提交结果与我们修改的差异
 
@@ -948,11 +1011,12 @@ git diff --theirs -b  //提交结果与他们那边的差异
 git diff --base -b    //提交结果在两边的差异 
 ```
 5. 清除
+
 ```
 git clean -f
 ```
 
-####检出冲突
+#### 检出冲突
 
 ```
 git checkout --conflict=diff3 hello.rb  //在冲突文件中显示三方修改
@@ -964,6 +1028,7 @@ git checkout --ours                    //冲突文件替换为我方的
 git checkout --theirs                  //冲突文件替换为他方的
 ```
 #### 合并日志
+
 ```
 git log --oneline --left-right HEAD...MERGE_HEAD    //每一个分支的所有独立提交的列表
 
@@ -982,6 +1047,7 @@ git log --oneline --left-right --merge  //查看两个分支中产生冲突的�
 
 ```
 #### 回退合并
+
 ```
 git reset --hard HEAD~
 ```
@@ -992,6 +1058,7 @@ git revert -m 1 HEAD  //由于合并节点有两个父节点，-m  1 需要被�
 ## 使用Git调试
 
 ### 文件标注
+
 ```
 git blame -L 12,22 Simplegit.rb   //显示文件每行的最近修改提交  -L 指定行号范围
 ```
@@ -1001,6 +1068,7 @@ git blame -C GITPackUpload.m   // -C 分析代码的原始出处
 ### 二分查找
 
 1. 手动方式
+
 ```
 git bisect start  
 
@@ -1015,6 +1083,7 @@ git bisect reset  //检测后重置
 ```
 
 2. 脚本方式
+
 ```
 git bisect start HEAD V1.0    //设置有问题区间
 
@@ -1025,10 +1094,12 @@ git bisect run test-error.sh  //每次检出都会自动执行脚本，在正常
 #### 子模块操作
 
 1. 添加子模块
+
 ```
 git submodule add  https://github.com/chaconinc/DbConnector  //添加字模块
 ```
 2. 查看项目变革
+
 ```
 git diff --cached --submodule
 
@@ -1044,6 +1115,7 @@ index 0000000..71fc376
 Submodule DbConnector 0000000...c3f01dc (new submodule)
 ```
 3. 提交增加的子模块
+
 ```
 git commit -am 'added DbConnector module'
 
@@ -1053,6 +1125,7 @@ create mode 100644 .gitmodules
 create mode 160000 DbConnector
 ```
 4. 检出子模块
+
 ```
 git clone https://github.com/chaconinc/MainProject    MainProject 
 
@@ -1064,6 +1137,7 @@ git submodule update   //下载代码
 ```
 
 5. 如果子模块有修改，拉取子模块修改
+
 ```
 git submodule update --remote DbConnector
 ```
@@ -1082,6 +1156,7 @@ git commit
 ```
 
 7. 在我们改动后,同时上游也有个修改，可以通过rebase合入
+
 ```
 git submodule update --remote --rebase
 ```
@@ -1098,6 +1173,7 @@ git push --recurse-submodules=on-demand //尝试提交子模块
 ```
 
 #### 子模块技巧
+
 ```
 git submodule foreach 'git stash'  //遍历子模块
 ```
@@ -1105,6 +1181,7 @@ git submodule foreach 'git stash'  //遍历子模块
 ### 二进制打包
 
 1. 打包整个仓库
+
 ```
 git bundle creat repo.bundle HEAD master    //创建bundle
 ```
@@ -1114,6 +1191,7 @@ git clone repo.bundle repo    //检出
 //git clone repo.bundle -b master repo  //创建bundle时未指明HEAD时需要加 -b master支持从哪里检出
 ```
 2. 打包某些提交
+
 ```
 git bundle create commit.bundle master ^ead459   //^= --not
 
@@ -1125,6 +1203,7 @@ git fetch  commit.bundle  master:other-master  //合入到other-master  //获取
 ```
 ### 拆分仓库
 1. 保存就仓库
+
 ```
 git branch history sha-1
 
@@ -1133,6 +1212,7 @@ git remote add project-his ssh://192.168.31.6:/opt/git/project-his.git  //创建
 git push project-his  history:master    //推送旧版本库
 ```
 2. 创建新仓库
+
 ```
 echo "get history form ssh://192.168.31.6:/opt/git/project-his.git" | git commit-tree history^{tree}  //基于旧仓库创建新库的初始提交
 622e88e9cbfbacfb75b5279245b9fb38dfea10cf
@@ -1159,6 +1239,7 @@ git replace project-new第一笔提交sha-1   project-old最后一笔提交sha-1
 
 ### git对象
 1. 生成git对象
+
 ```
 git hash-object -w  test.txt   //存储数据对象,返回hash值
 
@@ -1169,26 +1250,31 @@ echo 'version 1 ' | git hash-object -w --stdin  // 从stdin读取数据
 
 ```
 2. 查看git对象
+
 ```
 git cat-file -p  83baae61804e65cc73a7201a7252750c76066a30   //查看数据对象内容
 ```
 3. 向暂存区添加文件
+
 ```
 git update-index --add --cacheinfo 100644  83baae61804e65cc73a7201a7252750c76066a30 test.txt  //新增文件增加到index区
 ```
 新增与更新文件
+
 ```
 git update-index test.txt
 
 git update-index --add new.txt
 ```
 4. 写入树对象
+
 ```
 git write-tree     //写入树对象,返回hash值
 
 d8329fc1cc938780ffdd9f94e0d364e0ea74f579
 ```
 5. 生成提交对象
+
 ```
 echo 'first commit' | git commit-tree d8329fc1cc938780  //生成提交,返回提交hash值
 
@@ -1201,6 +1287,7 @@ git write-tree
 
 ```
 7.  commit形成链表
+
 ```
 //git cat-file -p master^{tree}  //查看最近一次master分支提交的树对象
 
@@ -1208,16 +1295,19 @@ echo 'second commit ' | git commit-tree dffdefdfdf -p fdf4fc334   //-p 指明父
 
 ```
 8.  查看提交历史
+
 ```
 git log --state fdf4fc3  //查看提交
 ```
 ### git引用
 
 1.  .git/refs/heads目录保存每个分支的最新hash值
+
 ```
 git update-ref refs/heads/test   sha-1  //更新或增加test分支引用
 ```
 2. HEAD保存当前使用的是哪一个分支
+
 ```
 $ cat .git/HEAD
 

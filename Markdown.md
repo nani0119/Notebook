@@ -128,3 +128,10 @@ int main()
 - [ ] 推送代码
 
 
+# 8 图片
+
+```
+![markdown logo](res/images/markdown/markdown.jpg)
+```
+
+![markdown logo](res/images/markdown/markdown.jpg)
