@@ -257,4 +257,8 @@
 |   执行替换   |      :s/target/replacement      |   &  |   u  |
 |  执行宏操作  |           qx{changes}q          |  @x  |   u  |
 
+## 查找和手动替换
 
+*命令可以对光标所在的单词进行查找,n跳到下一个匹配项，.实现重复修改
+
+![查找与手动替换](res/images/vim/Search-Without-Typing.jpg)
