@@ -860,5 +860,100 @@ qaq                    清空寄存器a
 
 ## 自动补全
 
+### 自动补全方式
+
+| 命令    | 补全类型           |
+|---------|--------------------|
+| C-n     | 普通关键字         |
+| C-x C-n | 当前缓冲区关键字   |
+| C-x C-i | 包含文件关键字     |
+| C-x C-] | Ctag标签文件关键字 |
+| C-x C-k | 字典查找           |
+| C-x C-l | 整行补全           |
+| C-x C-f | 文件名补全         |
+| C-x C-o | 全能补全           |
 
 
+### 自动补全菜单交互
+
+| 按键      | 作用                             |
+|-----------|----------------------------------|
+| C-n或DOWN | 下一项                           |
+| C-p或UP   | 上一项                           |
+| C-y       | 使用当前选项                     |
+| C-e       | 从自动补全中退出，还原以前的文本 |
+| C-h       | 退格，删除一个字符               |
+| C-l       | 从当前匹配中增加一个字符         |
+| {char}    | 中止自动补全                     |
+
+
+## 拼写检查
+
+```
+: set spell  启用拼写检查
+: set spelllang=en_us  设置拼写检查语言 
+
+```
+拼写检查命令
+
+| 命令 | 用途                           |
+|------|--------------------------------|
+| ]s   | 下一个拼写错误                 |
+| [s   | 上一个拼写错误                 |
+| z=   | 为当前单词提供拼写建议         |
+| zg   | 把当前单词放到拼写文件         |
+| zw   | 把当前单词从拼写文件中删除     |
+| zug  | 撤销针对当前单词的zg或者zw命令 |
+
+### 将单词添加到拼写文件
+
+1. 创建拼写文件
+
+```
+setlocal spelllang=en_us
+setlocal spellfile=~/.vim/spell/en.utf-8.add
+setlocal spellfile+=~/books/practical_vim/jargon.utf-8.add
+
+~/.vim/spell/en.utf-8.add 是缺省路径，它保存着所有由zg 命令添加的单词。
+而路径~/books/practical_vim/jargon.utf-8.add 则指向本书代码库中的一个文
+件，它保存着由我维护的Vim 术语列表
+
+2zg 将其添加到Vim 的术语列表中，也可以通过1zg 将其添加到缺省的单词
+列表中
+```
+
+# 动态改变vim的设置项
+
+```
+1. 打开配置项
+
+:set ignorecase
+
+2.关闭配置项，在设置项前添加单词“no”
+
+:set noignorecase
+
+3.反转配置项，需要在配置项添加“!”
+
+:set ignorecase!
+
+4. 查看配置项的值
+
+:set ignorecase?
+
+5. 设置成默认值，需要在配置项后添加“&”
+
+:set ignorecase&
+
+```
+
+```
+Vim 的设置项通常全局生效，但有些选项只对一个窗口或缓冲区生效,
+使用setlocal
+
+:bufdo setlocal tabstop=4
+:windo setlocal number
+```
+
+
+```
