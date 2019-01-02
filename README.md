@@ -8,4 +8,6 @@
 
 [vim笔记](PracticalVim.md)
 
+[Bash Support](BashSupport.md)
+
 
