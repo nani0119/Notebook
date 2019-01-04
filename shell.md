@@ -160,4 +160,21 @@ command << delimiter    here document
 grep Linux file1 | diff file2 -
 ```
 
+31. ~+ 当前工作目录.相当$PWD内部变量.
 
+32. ~- 先前的工作目录. 相当于$OLDPWD内部变量.
+
+# 变量和参数
+
+## 变量替换
+
+1. 变量使用等号复制，使用$对变量进行引用
+
+2. 等号的前后不能存在空格
+
+```
+VARIABLE =value   //解释器认为VALIABLE为一个命令，带有参数=value
+VARIABLE= value   //解释器认为value为一个命令，并且带有环境变量VARIABLE=“”
+```
+
+3. $variable是${variable}的简写
